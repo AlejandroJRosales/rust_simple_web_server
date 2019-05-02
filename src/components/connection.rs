@@ -8,9 +8,10 @@ pub fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 9192];
     stream.read(&mut buffer).unwrap();
     let mut _request: Vec<u8> = Vec::new();
-    // Remove the 0 bytes in this loop, this will save time and improve readability. If bytes == &0 break?
     for c in buffer.iter() {
-        _request.push(*c);
+        if c != &0 {
+            _request.push(*c);
+        }
     }
     let request = String::from_utf8(_request).unwrap();
     let response = verify(request);
@@ -18,22 +19,8 @@ pub fn handle_connection(mut stream: TcpStream) {
     stream.flush().unwrap();
 }
 
-// Refactor this bit
 fn verify(request: String) -> String {
     let _request = &request.as_bytes();
-    // Remove the 0 bytes ahead of time. This will save 1 or 2 loops through the bytes. Refer to line 12
-    let mut loc = 0;
-    for n in 0.._request.len() {
-        if _request[n] == 0 {
-            loc = n;
-            break;
-        }
-    }
-    let mut request_purged: Vec<u8> = Vec::new();
-    for l in 0..loc {
-        request_purged.push(_request[l]);
-    }
-    let request = String::from_utf8(request_purged).unwrap();
     if count_string_occurrence(request.clone(), String::from("\r\n\r\n")) != 1
         || String::from("\r\n\r\n") != &request[request.len() - 4..]
     {

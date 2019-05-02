@@ -1,0 +1,8 @@
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto; 
+}
+
+.item1 {
+    grid-column: 2 /span 3;
+}
