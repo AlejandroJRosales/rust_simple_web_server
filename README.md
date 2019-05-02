@@ -4,7 +4,7 @@ The reason that only the standard libraries are used is that I'm aware that ther
 
 __Plans for this Project__ 
 - Add proper documentation to the code.
-- When the data is being received in the handle_connection method within src/components/connection.rs I should remove the 0 bytes. Currently that is being done later but I think that I should be able to remove an iteration through bytes of incoming data.
+- ~~When the data is being received in the handle_connection method within src/components/connection.rs I should remove the 0 bytes. Currently that is being done later but I think that I should be able to remove an iteration through bytes of incoming data.~~ __Finished__
 - I want to add some form of templating to this project. I'm not sure to what extent but I think that would be helpful.
 - I want to add database support, I'm not sure how to due this and I think it will be hard if I want to continue with the no external packages approach.
 - I want to create a simple but informative example base page.
